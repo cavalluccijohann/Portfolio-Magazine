@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__nuxt, #__layout, html, body {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+// Use the color in RGB format ( for can have the opacity )
+
+html.light {
+  --color-primary: 100, 217, 138;
+  --color-background: 236, 235, 232;
+  --color-text: 11, 10, 10;
+
+}
+
+html.dark {
+  --color-primary: 100, 217, 138;
+  --color-background: 11, 10, 10;
+  --color-text: 236, 235, 232;
+}
