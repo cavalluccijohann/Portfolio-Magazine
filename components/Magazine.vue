@@ -19,7 +19,7 @@ onMounted(() => {
 
     // put the width on the book element
     const book = document.querySelector('.book');
-    book.style.width = (imageWidth * 2) + 'px';
+    book.style.width = ((imageWidth * 2) - 1) + 'px';
   }
 
   document.getElementById('contact').classList.add('remove-left');

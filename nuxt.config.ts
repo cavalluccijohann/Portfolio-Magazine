@@ -15,8 +15,8 @@ export default defineNuxtConfig({
   modules: ["@nuxt/fonts", "nuxt-svgo", "nuxt-mailer", "@nuxt/ui"],
 
   colorMode: {
-    preference: "system",
-    fallback: "dark",
+    preference: "light",
+    fallback: "light",
     classSuffix: '',
     storageKey: "nuxt-starter-color-mode",
   },
