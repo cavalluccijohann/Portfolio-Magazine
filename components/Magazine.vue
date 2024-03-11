@@ -1,4 +1,28 @@
 <script setup lang="js">
+
+const pages = [
+  {
+    id: 1,
+    title: 'First Page',
+    path: '/firstPage.png'
+  },
+  {
+    id: 2,
+    title: 'Second Page',
+    path: '/secondPage.png'
+  },
+  {
+    id: 3,
+    title: 'Third Page',
+    path: '/thirdPage.png'
+  },
+  {
+    id: 4,
+    title: 'Fourth Page',
+    path: '/fourthPage.png'
+  }
+]
+
 onMounted(() => {
 
   // Listenere for the resize event
@@ -72,17 +96,12 @@ onMounted(() => {
     </div>
     <div class="book">
       <div id="pages" class="pages">
-        <div class="page">
-          <img class="min-h-100 h-full w-auto" src="/firstPage.png">
-        </div>
-        <div class="page">
-          <img class="min-h-100 h-full w-auto" src="/secondPage.png">
-        </div>
-        <div class="page">
-          <img class="min-h-100 h-full w-auto" src="/thirdPage.png">
-        </div>
-        <div class="page">
-          <img class="min-h-100 h-full w-auto" src="/fourthPage.png">
+        <div
+            v-for="page in pages"
+            :key="page.id"
+            class="page"
+        >
+          <img class="min-h-100 h-full w-auto" :src="page.path" />
         </div>
       </div>
     </div>
