@@ -11,11 +11,10 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex flex-col h-screen justify-between">
-    <div class="flex flex-center justify-center h-screen w-screen items-center">
+  <div class="flex flex-col w-screen h-screen justify-between">
+    <div class="flex flex-center justify-center size-full overflow-hidden">
       <Magazine />
     </div>
-    <Footer />
   </div>
 </template>
 

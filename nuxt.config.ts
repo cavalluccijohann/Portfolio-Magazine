@@ -1,7 +1,18 @@
 export default defineNuxtConfig({
   css: ["~/assets/style/main.scss"],
 
-  modules: ["@nuxtjs/color-mode", "@nuxtjs/tailwindcss"],
+  runtimeConfig: {
+    public: {},
+    private: {
+      resendApiKey: process.env.RESEND_API_KEY,
+    },
+  },
+
+  ui: {
+    icons: ['lucide'],
+  },
+
+  modules: ["@nuxt/fonts", "nuxt-svgo", "nuxt-mailer", "@nuxt/ui"],
 
   colorMode: {
     preference: "system",
@@ -10,5 +21,9 @@ export default defineNuxtConfig({
     storageKey: "nuxt-starter-color-mode",
   },
 
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+
+  svgo: {
+    autoImportPath: "./assets/logo/",
+  },
 })

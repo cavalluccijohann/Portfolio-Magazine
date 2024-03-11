@@ -1,5 +1,28 @@
 <script setup lang="js">
 onMounted(() => {
+
+  // Listenere for the resize event
+  window.addEventListener('resize', function() {
+    widthBook();
+  });
+
+  // Get the width of one image and put it on the book element
+  widthBook();
+
+  // Function to get the width of one image and put it on the book element
+  function widthBook() {
+    const images = document.querySelectorAll('.page img');
+    let totalWidth = 0;
+
+    // get the width of one image
+    const imageWidth = images[0].clientWidth;
+
+    // put the width on the book element
+    const book = document.querySelector('.book');
+    book.style.width = (imageWidth * 2) + 'px';
+  }
+
+  document.getElementById('contact').classList.add('remove-left');
   var pages = document.getElementsByClassName('page');
   for(var i = 0; i < pages.length; i++) {
     var page = pages[i];
@@ -9,47 +32,131 @@ onMounted(() => {
   }
 
     for(var i = 0; i < pages.length; i++) {
-      console.log('DOMContentLoaded', i);
       //Or var page = pages[i];
       pages[i].pageNum = i + 1;
       pages[i].onclick=function() {
+        console.log('click', this.pageNum);
         if (this.pageNum % 2 === 0) {
+          if (this.pageNum === 2) {
+            document.getElementById('intro').classList.remove('remove-right');
+            document.getElementById('intro').classList.add('add-right');
+          } else if (this.pageNum === pages.length) {
+            document.getElementById('contact').classList.remove('add-left');
+            document.getElementById('contact').classList.add('remove-left');
+          }
           this.classList.remove('flipped');
           this.previousElementSibling.classList.remove('flipped');
         } else {
+          if (this.pageNum === 1) {
+            document.getElementById('intro').classList.remove('add-right');
+            document.getElementById('intro').classList.add('remove-right');
+          }
+          else if (this.pageNum === pages.length - 1) {
+            document.getElementById('contact').classList.remove('remove-left');
+            document.getElementById('contact').classList.add('add-left');
+          }
           this.classList.add('flipped');
           this.nextElementSibling.classList.add('flipped');
         }
       }
     }
 });
+
 </script>
 
 
 <template>
-  <div class="book">
-    <div id="pages" class="pages">
-      <div class="page">
-        <img src="public/firstPage.png">
-      </div>
-      <div class="page">
-        <img src="public/secondPage.png">
-      </div>
-      <div class="page">
-        <img src="public/thirdPage.png">
-      </div>
-      <div class="page">
-        <img src="public/fourthPage.png">
-      </div>
-      <div class="page">
-        <img src="public/fifthPage.png">
+  <div class="py-10 h-screen overflow-x-hidden">
+    <div id="intro" class="flex flex-center justify-center w-[40vw] h-[87%] absolute left-14 z-10 items-center">
+      <Hero />
+    </div>
+    <div class="book">
+      <div id="pages" class="pages">
+        <div class="page">
+          <img class="min-h-100 h-full w-auto" src="/firstPage.png">
+        </div>
+        <div class="page">
+          <img class="min-h-100 h-full w-auto" src="/secondPage.png">
+        </div>
+        <div class="page">
+          <img class="min-h-100 h-full w-auto" src="/thirdPage.png">
+        </div>
+        <div class="page">
+          <img class="min-h-100 h-full w-auto" src="/fourthPage.png">
+        </div>
       </div>
     </div>
+    <div id="contact" class="flex justify-center w-[40vw] h-[87%] absolute right-14 z-10 top-0 items-center">
+      <Contact />
+    </div>
   </div>
+
 </template>
 
 <style scoped>
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-60vw);
+  }
+}
+
+
+@keyframes moveRight {
+  from {
+    transform: translateX(-60vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveContact {
+  from {
+    transform: translateX(60vw);
+  }
+  to {
+    transform: translateX(0vw);
+  }
+}
+
+@keyframes removeContact {
+  from {
+    transform: translateX(0vw);
+  }
+  to {
+    transform: translateX(60vw);
+  }
+}
+
+.element {
+  animation: moveLeft 2s linear infinite; /* Animation de 2 secondes avec une vitesse linéaire, en boucle */
+}
+
+.remove-right {
+  animation: moveLeft 0.7s linear forwards;
+}
+
+.add-right {
+  animation: moveRight 0.7s linear forwards;
+}
+
+.add-left {
+  animation: moveContact 0.7s linear forwards;
+}
+
+.remove-left {
+  animation: removeContact 0.7s linear forwards;
+}
+
+
+
 .book {
+  width: 40vw;
+  height: 100%; /* Modifier la hauteur */
   transition: opacity 0.4s 0.2s;
 }
 p{
@@ -59,8 +166,8 @@ p{
   color: #000000;
 }
 .page {
-  width: 30vw;
-  height: 44vw;
+  min-height: 100%;
+  max-width: 100%;
   background-color: #111111;
   float: left;
   margin-bottom: 0.5em;
@@ -74,8 +181,8 @@ p{
   perspective: 250vw;
 }
 .book .pages {
-  width: 60vw;
-  height: 44vw;
+  width: 100%;
+  height: 100%;
   position: relative;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -88,8 +195,8 @@ p{
   margin: 0;
   position: absolute;
   top: 0;
-  width: 30vw;
-  height: auto;
+  width: auto;
+  height: 100%;
   transform-origin: 0 0;
   transition: transform 1.4s;
   backface-visibility: hidden;
@@ -171,17 +278,7 @@ body {
   background: #333;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-html {
-  height: 100%;
-}
-body {
-  min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2em 0;
-  line-height: 1.5em;
-}
+
 .page:nth-child(odd){
   background-position: right top;
 }
