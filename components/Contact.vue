@@ -1,5 +1,26 @@
 <script setup lang="ts">
 import { toast, Toaster } from "vue-sonner";
+import { defineProps } from 'vue';
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+  },
+});
+const { data } = props;
+async function goToHome() {
+  const numberPages = data.length;
+  // simulate a click on the element with the class "page" and the key 1
+  for (let i = numberPages; i > 0;) {
+    document.querySelector('.page:nth-child(' + i + ')').click();
+    await new Promise(resolve => setTimeout(resolve, 500));
+    i -= 2;
+    if (i > 20) {
+      console.log('break');
+      break;
+    }
+  }
+}
 
 const form = ref({
   name: "",
@@ -112,6 +133,14 @@ async function sendForm() {
 
           {{ loading ? "" : "Send" }}
         </button>
+        <NuxtLink
+            @click="goToHome()"
+            class="cursor-pointer flex items-center hover:text-color-primary/50 mt-10"
+        >
+          <span class="sr-only">Go to the Home page</span>
+          <span class="antonio font-medium text-sm text-color-primary " >Retour Acceuil</span>
+          <Icon name="i-lucide-external-link" class="size-4 text-color-primary/90 text-center ml-2" />
+        </NuxtLink>
       </div>
     </form>
   </div>

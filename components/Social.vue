@@ -19,7 +19,7 @@ const socials = [
 </script>
 
 <template>
-  <div class="flex gap-6 sm:gap-10 mt-10 z-10">
+  <div class="flex gap-6 sm:gap-10 my-10 z-10">
     <NuxtLink
       v-for="social in socials"
       :key="social.name"

@@ -23,6 +23,8 @@ const pages = [
   }
 ]
 
+
+
 onMounted(() => {
 
   // Listenere for the resize event
@@ -92,7 +94,7 @@ onMounted(() => {
 <template>
   <div class="py-10 h-screen overflow-x-hidden">
     <div id="intro" class="flex flex-center justify-center w-[40vw] h-[87%] absolute left-14 z-10 items-center">
-      <Hero />
+      <Hero :data="pages"/>
     </div>
     <div class="book">
       <div id="pages" class="pages">
@@ -106,8 +108,9 @@ onMounted(() => {
       </div>
     </div>
     <div id="contact" class="flex justify-center w-[40vw] h-[87%] absolute right-14 z-10 top-0 items-center">
-      <Contact />
+      <Contact :data="pages"/>
     </div>
+
   </div>
 
 </template>
