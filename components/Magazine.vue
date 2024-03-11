@@ -92,22 +92,22 @@ onMounted(() => {
 
 
 <template>
-  <div class="py-10 h-screen overflow-x-hidden">
-    <div id="intro" class="flex flex-center justify-center w-[40vw] h-[87%] absolute left-14 z-10 items-center">
+  <div class="py-10 w-full h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
+    <div id="intro" class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:left-14 z-10 items-center">
       <Hero :data="pages"/>
     </div>
-    <div class="book">
+    <div class="book w-full">
       <div id="pages" class="pages">
         <div
             v-for="page in pages"
             :key="page.id"
             class="page"
         >
-          <img class="min-h-100 h-full w-auto" :src="page.path" />
+          <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path" />
         </div>
       </div>
     </div>
-    <div id="contact" class="flex justify-center w-[40vw] h-[87%] absolute right-14 z-10 top-0 items-center">
+    <div id="contact" class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:right-14 z-10 lg:top-0 items-center">
       <Contact :data="pages"/>
     </div>
 
@@ -154,30 +154,36 @@ onMounted(() => {
   }
 }
 
-.element {
-  animation: moveLeft 2s linear infinite; /* Animation de 2 secondes avec une vitesse linéaire, en boucle */
+
+
+
+@media (min-width: 1024px) {
+  .element {
+    animation: moveLeft 2s linear infinite; /* Animation de 2 secondes avec une vitesse linéaire, en boucle */
+  }
+
+  .remove-right {
+    animation: moveLeft 0.7s linear forwards;
+  }
+
+  .add-right {
+    animation: moveRight 0.7s linear forwards;
+  }
+  .add-left {
+    animation: moveContact 0.7s linear forwards;
+  }
+
+  .remove-left {
+    animation: removeContact 0.7s linear forwards;
+  }
 }
 
-.remove-right {
-  animation: moveLeft 0.7s linear forwards;
-}
 
-.add-right {
-  animation: moveRight 0.7s linear forwards;
-}
-
-.add-left {
-  animation: moveContact 0.7s linear forwards;
-}
-
-.remove-left {
-  animation: removeContact 0.7s linear forwards;
-}
 
 
 
 .book {
-  width: 40vw;
+  //width: 40vw;
   height: 100%; /* Modifier la hauteur */
   transition: opacity 0.4s 0.2s;
 }

@@ -135,7 +135,7 @@ async function sendForm() {
         </button>
         <NuxtLink
             @click="goToHome()"
-            class="cursor-pointer flex items-center hover:text-color-primary/50 mt-10"
+            class="hidden lg:block cursor-pointer flex items-center hover:text-color-primary/50 mt-10"
         >
           <span class="sr-only">Go to the Home page</span>
           <span class="antonio font-medium text-sm text-color-primary " >Retour Acceuil</span>

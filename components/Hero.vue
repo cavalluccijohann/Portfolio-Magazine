@@ -35,7 +35,7 @@ async function goToContact() {
     <Social />
     <NuxtLink
         @click="goToContact()"
-        class="cursor-pointer flex items-center hover:text-color-primary/50"
+        class="hidden lg:block cursor-pointer flex items-center hover:text-color-primary/50"
     >
       <span class="sr-only">Go to the contact page</span>
       <Icon name="i-lucide-external-link" class="size-4 text-color-primary/90 text-center mr-2" />
