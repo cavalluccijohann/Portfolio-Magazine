@@ -29,11 +29,38 @@ onMounted(() => {
 
   // Listenere for the resize event
   window.addEventListener('resize', function() {
-    widthBook();
+    // if the windows is over 1024px
+    if (window.innerWidth > 1024) {
+      // Get the width of one image and put it on the book element
+      widthBook();
+    } else {
+      heightBook();
+    }
   });
 
   // Get the width of one image and put it on the book element
-  widthBook();
+  // if the windows is over 1024px
+  if (window.innerWidth > 1024) {
+    widthBook();
+  } else {
+    heightBook();
+  }
+
+
+  function heightBook() {
+    const images = document.querySelectorAll('.page img');
+    let totalHeight = 0;
+
+    // get the height of one image
+    const imageHeight = images[0].clientHeight;
+
+    // put the height on the book element
+    const book = document.querySelector('.book');
+    book.style.height = (imageHeight) + 'px';
+
+    // put the width 100% on the book element
+    book.style.width = '100%';
+  }
 
   // Function to get the width of one image and put it on the book element
   function widthBook() {
@@ -46,6 +73,9 @@ onMounted(() => {
     // put the width on the book element
     const book = document.querySelector('.book');
     book.style.width = ((imageWidth * 2) - 1) + 'px';
+
+    // put the height 100% on the book element
+    book.style.height = '100%';
   }
 
   document.getElementById('contact').classList.add('remove-left');
@@ -92,16 +122,16 @@ onMounted(() => {
 
 
 <template>
-  <div class="py-10 w-full h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
+  <div class="py-10 h-max w-full h-full lg:h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
     <div id="intro" class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:left-14 z-10 items-center">
       <Hero :data="pages"/>
     </div>
-    <div class="book w-full">
-      <div id="pages" class="pages">
+    <div class="book w-full h-[34rem] lg:h-full transition-opacity duration-400 delay-200 my-10 lg:my-0">
+      <div id="pages" style="height: inherit;" class="pages w-full h-inherit lg:h-full relative transform-none backface-hidden rounded-md">
         <div
             v-for="page in pages"
             :key="page.id"
-            class="page"
+            class="page min-h-100 max-w-100 bg-black float-left mb-5 bg-cover bg-no-repeat bg-left-top clear-both float-none clear-none m-0 absolute top-0 w-auto h-full cursor-pointer bg-white select-none "
         >
           <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path" />
         </div>
@@ -125,7 +155,6 @@ onMounted(() => {
     transform: translateX(-60vw);
   }
 }
-
 
 @keyframes moveRight {
   from {
@@ -155,8 +184,6 @@ onMounted(() => {
 }
 
 
-
-
 @media (min-width: 1024px) {
   .element {
     animation: moveLeft 2s linear infinite; /* Animation de 2 secondes avec une vitesse linéaire, en boucle */
@@ -180,20 +207,13 @@ onMounted(() => {
 
 
 
-
-
-.book {
-  //width: 40vw;
-  height: 100%; /* Modifier la hauteur */
-  transition: opacity 0.4s 0.2s;
-}
-p{
+/*p{
   margin-top: 8vw;
   text-align: center;
   font-size: 5vw;
   color: #000000;
-}
-.page {
+}*/
+/*.page {
   min-height: 100%;
   max-width: 100%;
   background-color: #111111;
@@ -201,38 +221,25 @@ p{
   margin-bottom: 0.5em;
   background: left top no-repeat;
   background-size: cover;
-}
-.page:nth-child(even) {
+}*/
+/*.page:nth-child(even) {
   clear: both;
-}
+}*/
+
 .book {
   perspective: 250vw;
 }
 .book .pages {
-  width: 100%;
-  height: 100%;
-  position: relative;
   transform-style: preserve-3d;
-  backface-visibility: hidden;
-  border-radius: 4px;
-  /*box-shadow: 0 0 0 1px #e3dfd8;*/
 }
+
 .book .page {
-  float: none;
-  clear: none;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  width: auto;
-  height: 100%;
   transform-origin: 0 0;
   transition: transform 1.4s;
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  cursor: pointer;
-  user-select: none;
-  background-color: #f0f0f0;
 }
+
 .book .page:before {
   content: '';
   position: absolute;
@@ -294,17 +301,6 @@ p{
 }
 .book .page.flipped:nth-child(even):before {
   background: rgba(0, 0, 0, 0);
-}
-*,
-* :before,
-*:after {
-  box-sizing: border-box;
-}
-html,
-body {
-  font-family: 'Lovers Quarrel', cursive;
-  background: #333;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .page:nth-child(odd){

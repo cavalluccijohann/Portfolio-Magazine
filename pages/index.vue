@@ -11,8 +11,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex flex-col w-screen h-screen justify-between">
-    <div class="flex flex-center justify-center size-full overflow-hidden">
+  <div class="flex flex-col w-screen h-full lg:h-screen justify-between">
+    <div class="flex flex-center justify-center size-full lg:overflow-hidden">
       <Magazine />
     </div>
   </div>
