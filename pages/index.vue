@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import Footer from "~/components/Footer.vue";
 
 definePageMeta({
   title: "Home",
