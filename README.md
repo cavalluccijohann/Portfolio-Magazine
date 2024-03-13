@@ -1,90 +1,48 @@
 ![image](public/project-preview.png)
 
-It's a minimal starter for Nuxt 3 and start building your next web application simply and quickly. Including :
+This is an original portfolio presented in the form of a magazine, designed to showcase one's projects and skills. It is created using:
 - [Tailwind CSS](https://tailwindcss.com/)
-- Color mode (dark & light)
+- [Nuxt 3](https://nuxt.com/docs/getting-started/introduction)
+- [Resend](https://resend.com/docs/introduction)
 
 
 ## Quick Setup
 
---- 
-
-To get started, follow these steps:
-
-
+1. Clone this repository if you have access or download it from the store
 ```bash
-# npm
-npm install
+git clone git@github.com:cavalluccijohann/nuxtletters.git
+```
 
-# pnpm
-pnpm install
+2. Set up the project
+```bash
+- Create a .env file and add the environment variables found in the .env.example file.
+- Replace the magazine page in the public directory with your own magazine page. Then, in the Magazine.vue file, update the array with your own files.
+```
 
-# yarn
-yarn install
 
-# bun
+3. Install dependencies
+```bash
 bun install
 ```
 
-## Development Server
-
----
-
-Start the development server on `http://localhost:3000`:
-
+4. Start development server
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+bun dev
 ```
 
-## Production
-
----
-
-Build the application for production:
-
+5. Generate static project
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+bun generate
 ```
 
-Locally preview production build:
-
+6. Start production server
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+bun start
 ```
 
 ## Author
 
 ---
 
-- [Johann Cavallucci]('https://github.com/cavalluccijohann')
+- [Johann Cavallucci]('https://johanncvl.com/')
 
