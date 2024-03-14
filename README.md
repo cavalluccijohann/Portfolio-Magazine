@@ -10,7 +10,7 @@ This is an original portfolio presented in the form of a magazine, designed to s
 
 1. Clone this repository if you have access or download it from the store
 ```bash
-git clone git@github.com:cavalluccijohann/nuxtletters.git
+git clone git@github.com:cavalluccijohann/Folio-Magazine.git
 ```
 
 2. Set up the project
