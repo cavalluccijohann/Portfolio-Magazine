@@ -44,5 +44,5 @@ bun start
 
 ---
 
-- [Johann Cavallucci]('https://johanncvl.com/')
+- [Johann Cavallucci](https://johanncvl.com/)
 
