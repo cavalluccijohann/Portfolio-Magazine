@@ -20,7 +20,7 @@ git clone git@github.com:cavalluccijohann/Folio-Magazine.git
 ```
 
 
-3. Install dependencies
+3. Install dependencies 
 ```bash
 bun install
 ```
