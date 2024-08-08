@@ -40,7 +40,7 @@ bun generate
 bun start
 ```
 
-## Author 
+## Author
 
 ---
 
