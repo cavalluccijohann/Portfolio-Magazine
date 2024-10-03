@@ -1,13 +1,15 @@
 export default defineNuxtConfig({
 
-  head: {
-    script: [
-      {
-        src: "https://analytics.hrcd.fr/js/script.js",
-        defer: true,
-        "data-domain": "foliomagazine.johanncvl.com",
-      },
-    ],
+  app: {
+    head: {
+      script: [
+        {
+          src: "https://analytics.hrcd.fr/js/script.js",
+          defer: true,
+          "data-domain": "foliomagazine.johanncvl.com",
+        },
+      ],
+    },
   },
   css: ["~/assets/style/main.scss"],
 
