@@ -164,7 +164,7 @@ function turnLeft() {
 
 
 <template>
-  <div class="py-10 h-max w-full h-full lg:h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
+  <div class="py-10 w-full h-full lg:h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
     <div id="intro"
          class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:left-14 z-10 items-center">
       <Hero :data="pages"/>
@@ -190,9 +190,9 @@ function turnLeft() {
         <div
             v-for="page in pages"
             :key="page.id"
-            class="page min-h-100 max-w-100 bg-black float-left mb-5 bg-cover bg-no-repeat bg-left-top clear-both float-none clear-none m-0 absolute top-0 w-auto h-full cursor-pointer bg-white select-none "
+            class="page min-h-100 max-w-100 mb-5 bg-cover bg-no-repeat bg-left-top m-0 absolute top-0 w-auto h-full cursor-pointer  select-none "
         >
-          <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path"/>
+          <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path" alt="page.title"/>
         </div>
       </div>
     </div>

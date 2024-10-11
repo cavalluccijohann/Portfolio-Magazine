@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toast, Toaster } from "vue-sonner";
+import { toast } from "vue-sonner";
 import { defineProps } from 'vue';
 const props = defineProps({
   data: {
@@ -125,7 +125,7 @@ async function sendForm() {
             :class="{ 'cursor-not-allowed': loading }"
             @click="!loading"
             :disabled="loading"
-            class="font-bold w-3/4 rounded-lg lg:w-2/2 p-2 my-1 text-base font-medium text-center inline-flex items-center justify-center text-color-background shadow-sm bg-color-text/90 hover:bg-color-text/60 relative from-secondary-color via-primary-color to-primary-color transition-all duration-300"
+            class="w-3/4 rounded-lg lg:w-2/2 p-2 my-1 text-base font-medium text-center inline-flex items-center justify-center text-color-background shadow-sm bg-color-text/90 hover:bg-color-text/60 relative from-secondary-color via-primary-color to-primary-color transition-all duration-300"
         >
           <UIcon v-if="!loading" name="i-lucide-send" class="w-5 h-5 text-color-background  mr-2" />
           <UIcon v-else name="i-lucide-rotate-ccw" class="w-5 h-5 text-color-background  mr-2 animate-spin" />
@@ -134,17 +134,13 @@ async function sendForm() {
         </button>
         <NuxtLink
             @click="goToHome()"
-            class="hidden lg:block cursor-pointer flex items-center hover:text-color-primary/50 mt-10"
+            class="lg:block cursor-pointer flex items-center hover:text-color-primary/50 mt-10"
         >
           <span class="sr-only">Go to the Home page</span>
-          <span class="antonio font-medium text-sm text-color-primary " >Retour Acceuil</span>
+          <span class="antonio font-medium text-sm text-color-primary" >Retour Acceuil</span>
           <Icon name="i-lucide-external-link" class="size-4 text-color-primary/90 text-center ml-2" />
         </NuxtLink>
       </div>
     </form>
   </div>
 </template>
-
-<style scoped>
-
-</style>

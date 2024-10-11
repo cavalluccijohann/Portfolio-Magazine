@@ -39,5 +39,3 @@ const socials = [
     </NuxtLink>
   </div>
 </template>
-
-<style scoped></style>

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 import {Toaster} from "vue-sonner";
 
 definePageMeta({
@@ -19,7 +18,3 @@ definePageMeta({
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
