@@ -46,7 +46,7 @@ async function sendForm() {
     console.error("Error sending form:", error);
     toast.error("Error sending form", {
       style: {
-        background: "var(--toast-color)",
+        background: "white",
         opacity: 0.9,
         borderColor: "var(--toast-color)",
         color: "var(--text-color)",
@@ -55,7 +55,7 @@ async function sendForm() {
   } finally {
     toast.success("Message sent successfully", {
       style: {
-        background: "var(--toast-color)",
+        background: "white",
         opacity: 0.9,
         borderColor: "var(--toast-color)",
         color: "var(--text-color)",
@@ -68,7 +68,6 @@ async function sendForm() {
 
 <template>
   <div class="w-full">
-    <Toaster position="top-left" />
     <h1 class="anton p-5 font-medium text-4xl text-color-text text-end">Contact <span class="text-color-primary">Me</span></h1>
     <h3 class="antonio text-sm text-color-text font-medium text-end">If you want to contact me, please fill out the form below</h3>
     <form class="w-full flex flex-col justify-center items-end mt-5" @submit.prevent="sendForm()">

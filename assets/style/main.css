@@ -7,10 +7,10 @@
   width: 100% !important;
 }
 
-// Use the color in RGB format ( for can have the opacity )
-
+ /*
+ Use the color in RGB format ( for can have the opacity )
+ */
 html.light {
-  // this color in RGB format : #355138 -> 53, 81, 56
   --color-primary: 53, 81, 56;
   --color-background: 236, 235, 232;
   --color-text: 11, 10, 10;
@@ -23,7 +23,7 @@ html.dark {
   --color-text: 236, 235, 232;
 }
 
-// Font family
+/* Font family*/
 
 .anton {
   font-family: Anton, sans-serif;
