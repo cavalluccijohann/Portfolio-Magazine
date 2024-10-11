@@ -1,5 +1,4 @@
 export default defineNuxtConfig({
-
   app: {
     head: {
       script: [
@@ -11,6 +10,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   css: ["~/assets/style/main.scss"],
 
   runtimeConfig: {
@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     icons: ['lucide'],
   },
 
-  modules: ["@nuxt/fonts", "nuxt-svgo", "nuxt-mailer", "@nuxt/ui"],
+  modules: ["@nuxt/fonts", "nuxt-svgo", "@nuxt/ui"],
 
   colorMode: {
     preference: "light",
@@ -38,4 +38,6 @@ export default defineNuxtConfig({
   svgo: {
     autoImportPath: "./assets/logo/",
   },
+
+  compatibilityDate: "2024-10-04",
 })

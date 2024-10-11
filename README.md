@@ -15,7 +15,7 @@ git clone git@github.com:cavalluccijohann/Folio-Magazine.git
 
 2. Set up the project
 ```bash
-- Create a .env file and add the environment variables found in the .env.example file.
+- Create a .env file and add the environment variables found in the .env file.
 - Replace the magazine page in the public directory with your own magazine page. Then, in the Magazine.vue file, update the array with your own files.
 ```
 
