@@ -43,33 +43,59 @@ onMounted(async () => {
   var isAnimating = false;
 
   for (var i = 0; i < pages.length; i++) {
+    // Add the page number
     pages[i].pageNum = i + 1;
+
+    // Add the click event
     pages[i].onclick = function () {
+      // Init
+      const pageNum = this.pageNum;
+
+      // Check if the screen is large
       if (window.innerWidth > 1024) {
+        // Animation Management
         if (isAnimating) return;
         isAnimating = true;
-        if (this.pageNum % 2 === 0) {
-          if (this.pageNum === 2) {
+        // Check if the page is even or odd
+        if (pageNum % 2 === 0) {
+          // check if the page is the first or the last
+          if (pageNum === 2) {
+            // Add the intro component
             document.getElementById('intro').classList.remove('remove-right');
             document.getElementById('intro').classList.add('add-right');
-          } else if (this.pageNum === pages.length) {
+          } else if (pageNum === pages.length) {
+            // Remove the contact component
             document.getElementById('contact').classList.remove('add-left');
             document.getElementById('contact').classList.add('remove-left');
           }
-          this.classList.remove('flipped');
-          this.previousElementSibling.classList.remove('flipped');
-          pageActive.value = this.pageNum - 1;
+          // Turn the page back
+          console.log('turn left', pageNum);
+          console.log('turn left', this);
+
+          document.getElementById('page-' + (pageNum)).classList.remove('flipped');
+          document.getElementById('page-' + (pageNum - 1)).classList.remove('flipped');
+          // change the z-index
+          document.getElementById('page-' + (pageNum)).style.zIndex = pages.length - pageNum;
+
+/*          this.classList.remove('flipped');
+          this.previousElementSibling.classList.remove('flipped');*/
+          pageActive.value = pageNum - 1;
         } else {
-          if (this.pageNum === 1) {
+          if (pageNum === 1) {
+            // Remove the intro component
             document.getElementById('intro').classList.remove('add-right');
             document.getElementById('intro').classList.add('remove-right');
-          } else if (this.pageNum === pages.length - 1) {
+          } else if (pageNum === pages.length - 1) {
+            // Add the contact component
             document.getElementById('contact').classList.remove('remove-left');
             document.getElementById('contact').classList.add('add-left');
           }
-          this.classList.add('flipped');
-          this.nextElementSibling.classList.add('flipped');
-          pageActive.value = this.pageNum;
+          // Turn the page forward
+          document.getElementById('page-' + (pageNum)).classList.add('flipped');
+          document.getElementById('page-' + (pageNum + 1)).classList.add('flipped');
+          // change the z-index
+          document.getElementById('page-' + (pageNum + 1)).style.zIndex = pages.length;
+          pageActive.value = pageNum;
         }
         setTimeout(() => {
           isAnimating = false;
@@ -82,8 +108,10 @@ onMounted(async () => {
   const bookElement = document.querySelector('.book');
 
   if (bookElement) {
-
-    bookElement.addEventListener('click', await handleBookClick);
+    // check if its the not the desktop
+    if (window.innerWidth < 1024) {
+      bookElement.addEventListener('click', await handleBookClick);
+    }
   }
 
 });
@@ -267,6 +295,7 @@ function handleGesture() {
         <div
             v-for="page in pages"
             :key="page.id"
+            :id="`page-${page.id}`"
             :style="{ zIndex: pages.length - page.id }"
             class="page min-h-100 max-w-100 bg-black float-left mb-5 bg-cover bg-no-repeat bg-left-top clear-none m-0 absolute top-0 w-auto h-full cursor-pointer select-none "
         >
