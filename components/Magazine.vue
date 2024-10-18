@@ -23,9 +23,8 @@ const pages = [
     path: '/fourthPage.png'
   }
 ]
-const pageActive = ref(1);
-//let isAnimating = false; // Indicateur d'animation
 
+const pageActive = ref(1);
 
 onMounted(async () => {
   // Get the pages
@@ -49,7 +48,6 @@ onMounted(async () => {
       if (window.innerWidth > 1024) {
         if (isAnimating) return;
         isAnimating = true;
-
         if (this.pageNum % 2 === 0) {
           if (this.pageNum === 2) {
             document.getElementById('intro').classList.remove('remove-right');
@@ -167,20 +165,8 @@ async function widthBook() {
 async function sizeWindowEvent(pages) {
   if (window.innerWidth > 1024) {
     await widthBook();
-    // z-index for the pages
-    for (var i = 0; i < pages.length; i++) {
-      var page = pages[i];
-      if (i % 2 === 0) {
-        page.style.zIndex = (pages.length - i);
-      }
-    }
   } else {
     await heightBook();
-    // z-index for the pages
-    for (var i = 0; i < pages.length; i++) {
-      var page = pages[i];
-      page.style.zIndex = (pages.length - i);
-    }
   }
 }
 
@@ -281,6 +267,7 @@ function handleGesture() {
         <div
             v-for="page in pages"
             :key="page.id"
+            :style="{ zIndex: pages.length - page.id }"
             class="page min-h-100 max-w-100 bg-black float-left mb-5 bg-cover bg-no-repeat bg-left-top clear-none m-0 absolute top-0 w-auto h-full cursor-pointer select-none "
         >
           <NuxtImg loading="lazy" class="min-h-100 h-70 lg:h-full w-auto" :src="page.path"/>
