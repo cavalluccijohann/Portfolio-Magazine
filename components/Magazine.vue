@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup>
 
 // Object with your magazine pages
 const pages = [
@@ -24,25 +24,32 @@ const pages = [
   }
 ]
 const pageActive = ref(1);
+//let isAnimating = false; // Indicateur d'animation
 
-onMounted(() => {
+
+onMounted(async () => {
   // Get the pages
   var pages = document.getElementsByClassName('page');
 
   // Manage according to the size of the window
-  sizeWindowEvent(pages);
+  await sizeWindowEvent(pages);
 
   // Listener for the windows resize
-  window.addEventListener('resize', function () {
-    sizeWindowEvent(pages);
+  window.addEventListener('resize', async function () {
+    await sizeWindowEvent(pages);
   });
 
+
   // Listener click on every pages ( Just for Large Screen )
+  var isAnimating = false;
+
   for (var i = 0; i < pages.length; i++) {
-    //Or var page = pages[i];
     pages[i].pageNum = i + 1;
     pages[i].onclick = function () {
       if (window.innerWidth > 1024) {
+        if (isAnimating) return;
+        isAnimating = true;
+
         if (this.pageNum % 2 === 0) {
           if (this.pageNum === 2) {
             document.getElementById('intro').classList.remove('remove-right');
@@ -66,17 +73,54 @@ onMounted(() => {
           this.nextElementSibling.classList.add('flipped');
           pageActive.value = this.pageNum;
         }
+        setTimeout(() => {
+          isAnimating = false;
+        }, 700);
       }
     }
   }
+
+
+  const bookElement = document.querySelector('.book');
+
+  if (bookElement) {
+
+    bookElement.addEventListener('click', await handleBookClick);
+  }
+
 });
+
+async function handleBookClick(event) {
+  const bookElement = event.currentTarget;
+  const rect = bookElement.getBoundingClientRect();
+  const clickX = event.clientX - rect.left; // Position X du clic relative à l'élément
+  const bookWidth = rect.width;
+
+  if (clickX < bookWidth / 2) {
+    // Clic sur la moitié gauche
+    await turnLeft();
+  } else {
+    // Clic sur la moitié droite
+    await turnRight();
+  }
+}
 
 /**
  * Function to get the height of one image and put it on the book element
  */
-function heightBook() {
+async function heightBook() {
   const images = document.querySelectorAll('.page img');
-  let totalHeight = 0;
+
+  // Wait for all images to load
+  await Promise.all(Array.from(images).map(image => {
+    return new Promise(resolve => {
+      if (image.complete) {
+        resolve();
+      } else {
+        image.addEventListener('load', resolve);
+      }
+    });
+  }));
 
   // get the height of one image
   const imageHeight = images[0].clientHeight;
@@ -92,9 +136,19 @@ function heightBook() {
 /**
  * Function to get the width of one image and put it on the book element
  */
-function widthBook() {
+async function widthBook() {
   const images = document.querySelectorAll('.page img');
-  let totalWidth = 0;
+
+  // Wait for all images to load
+  await Promise.all(Array.from(images).map(image => {
+    return new Promise(resolve => {
+      if (image.complete) {
+        resolve();
+      } else {
+        image.addEventListener('load', resolve);
+      }
+    });
+  }));
 
   // get the width of one image
   const imageWidth = images[0].clientWidth;
@@ -110,9 +164,9 @@ function widthBook() {
 /**
  * Function manage the width and height of the book element according to the size of the window
  */
-function sizeWindowEvent(pages) {
+async function sizeWindowEvent(pages) {
   if (window.innerWidth > 1024) {
-    widthBook();
+    await widthBook();
     // z-index for the pages
     for (var i = 0; i < pages.length; i++) {
       var page = pages[i];
@@ -121,7 +175,7 @@ function sizeWindowEvent(pages) {
       }
     }
   } else {
-    heightBook();
+    await heightBook();
     // z-index for the pages
     for (var i = 0; i < pages.length; i++) {
       var page = pages[i];
@@ -135,28 +189,65 @@ function sizeWindowEvent(pages) {
 /**
  * Mobile Function for turn page to right
  */
-function turnRight() {
+async function turnRight() {
   const currentPage = document.querySelector('.page:nth-child(' + (pageActive.value) + ')');
   const nextPage = document.querySelector('.page:nth-child(' + (pageActive.value + 1) + ')');
 
   if (nextPage) {
+
     currentPage.classList.add('flipped');
     pageActive.value++;
+
+    // Réinitialiser l'indicateur après la durée de l'animation
+    setTimeout(() => {
+    }, 100); // 1400ms doit correspondre à la durée de votre animation CSS
   }
 }
 
 /**
  * Mobile Function for turn page to left
  */
-function turnLeft() {
+async function turnLeft() {
   const currentPage = document.querySelector('.page:nth-child(' + (pageActive.value) + ')');
   const prevPage = document.querySelector('.page:nth-child(' + (pageActive.value - 1) + ')');
 
   if (prevPage) {
+
     prevPage.classList.remove('flipped');
     pageActive.value--;
+
+    // Réinitialiser l'indicateur après la durée de l'animation
+    setTimeout(() => {
+    }, 100); // 1400ms doit correspondre à la durée de votre animation CSS
   }
 }
+
+/*// Variables pour stocker les coordonnées de début et de fin du toucher
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Fonction pour gérer le début du toucher
+function handleTouchStart(event) {
+  touchStartX = event.changedTouches[0].screenX;
+}
+
+// Fonction pour gérer la fin du toucher
+function handleTouchEnd(event) {
+  touchEndX = event.changedTouches[0].screenX;
+  handleGesture(); // Détecter le geste
+}
+
+// Fonction pour détecter le geste
+function handleGesture() {
+  if (touchEndX < touchStartX) {
+    // Glissement vers la gauche
+    turnRight(); // Tourner la page à droite
+  }
+  if (touchEndX > touchStartX) {
+    // Glissement vers la droite
+    turnLeft(); // Tourner la page à gauche
+  }
+}*/
 
 /* endregion */
 
@@ -164,7 +255,7 @@ function turnLeft() {
 
 
 <template>
-  <div class="py-10 w-full h-full lg:h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
+  <div class="py-10 w-full h-max lg:h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
     <div id="intro"
          class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:left-14 z-10 items-center">
       <Hero :data="pages"/>
@@ -190,9 +281,9 @@ function turnLeft() {
         <div
             v-for="page in pages"
             :key="page.id"
-            class="page min-h-100 max-w-100 mb-5 bg-cover bg-no-repeat bg-left-top m-0 absolute top-0 w-auto h-full cursor-pointer  select-none "
+            class="page min-h-100 max-w-100 bg-black float-left mb-5 bg-cover bg-no-repeat bg-left-top clear-none m-0 absolute top-0 w-auto h-full cursor-pointer select-none "
         >
-          <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path" alt="page.title"/>
+          <NuxtImg loading="lazy" class="min-h-100 h-70 lg:h-full w-auto" :src="page.path"/>
         </div>
       </div>
     </div>

@@ -12,7 +12,12 @@ export default defineNuxtConfig({
     icons: ['lucide'],
   },
 
-  modules: ["@nuxt/fonts", "nuxt-svgo", "@nuxt/ui"],
+  modules: [
+    "@nuxt/fonts",
+    "nuxt-svgo",
+    "@nuxt/ui",
+    "@nuxt/image",
+  ],
 
   colorMode: {
     preference: "light",

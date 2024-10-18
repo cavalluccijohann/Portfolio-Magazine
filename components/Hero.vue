@@ -13,7 +13,7 @@ async function goToContact() {
   for (let i = 1; i < numberPages;) {
     console.log('i', i);
     document.querySelector('.page:nth-child(' + i + ')').click();
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 100));
     i += 2;
     if (i > 20) {
       console.log('break');
@@ -35,7 +35,7 @@ async function goToContact() {
     <Social />
     <NuxtLink
         @click="goToContact()"
-        class="lg:block cursor-pointer flex items-center hover:text-color-primary/50"
+        class="hidden lg:flex cursor-pointer items-center hover:text-color-primary/50"
     >
       <span class="sr-only">Go to the contact page</span>
       <Icon name="i-lucide-external-link" class="size-4 text-color-primary/90 text-center mr-2" />
