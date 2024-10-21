@@ -6,7 +6,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export default defineEventHandler(async (event: H3Event) => {
   try {
     const body = await readBody(event);
-    console.log(body);
     const { email, phone, message, name } = body;
     return await resend.emails.send({
       from: "📩 - CONTACT PORTFOLIO <contact@johanncvl.com>",

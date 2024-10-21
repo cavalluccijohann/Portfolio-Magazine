@@ -21,11 +21,20 @@ const pages = [
     id: 4,
     title: 'Fourth Page',
     path: '/fourthPage.png'
+  },
+  {
+    id: 5,
+    title: 'Third Page',
+    path: '/thirdPage.png'
+  },
+  {
+    id: 6,
+    title: 'Fourth Page',
+    path: '/fourthPage.png'
   }
 ]
 
 const pageActive = ref(1);
-const changeEveryPage = ref(false);
 const timeOut = ref(700);
 
 onMounted(async () => {
@@ -105,18 +114,18 @@ onMounted(async () => {
   }
 
 
-  const bookElement = document.querySelector('.book');
+  /*const bookElement = document.querySelector('.book');
 
   if (bookElement) {
     // check if its the not the desktop
     if (window.innerWidth < 1024) {
-      bookElement.addEventListener('click', await handleBookClick);
+      bookElement.addEventListener('click', handleBookClick);
     }
-  }
+  }*/
 
 });
 
-async function handleBookClick(event) {
+function handleBookClick(event) {
   const bookElement = event.currentTarget;
   const rect = bookElement.getBoundingClientRect();
   const clickX = event.clientX - rect.left; // Position X du clic relative à l'élément
@@ -124,10 +133,12 @@ async function handleBookClick(event) {
 
   if (clickX < bookWidth / 2) {
     // Clic sur la moitié gauche
-    await turnLeft();
+    console.log('left');
+     turnLeft();
   } else {
     // Clic sur la moitié droite
-    await turnRight();
+    console.log('right');
+     turnRight();
   }
 }
 
@@ -203,36 +214,36 @@ async function sizeWindowEvent(pages) {
 /**
  * Mobile Function for turn page to right
  */
-async function turnRight() {
+function turnRight() {
   const currentPage = document.querySelector('.page:nth-child(' + (pageActive.value) + ')');
   const nextPage = document.querySelector('.page:nth-child(' + (pageActive.value + 1) + ')');
 
   if (nextPage) {
-
     currentPage.classList.add('flipped');
     pageActive.value++;
 
-    // Réinitialiser l'indicateur après la durée de l'animation
+/*    // Réinitialiser l'indicateur après la durée de l'animation
     setTimeout(() => {
-    }, 100); // 1400ms doit correspondre à la durée de votre animation CSS
+    }, 700); // 1400ms doit correspondre à la durée de votre animation CSS*/
   }
 }
 
 /**
  * Mobile Function for turn page to left
  */
-async function turnLeft() {
+function turnLeft() {
+/*
   const currentPage = document.querySelector('.page:nth-child(' + (pageActive.value) + ')');
+*/
   const prevPage = document.querySelector('.page:nth-child(' + (pageActive.value - 1) + ')');
-
   if (prevPage) {
 
     prevPage.classList.remove('flipped');
     pageActive.value--;
 
-    // Réinitialiser l'indicateur après la durée de l'animation
+/*    // Réinitialiser l'indicateur après la durée de l'animation
     setTimeout(() => {
-    }, 100); // 1400ms doit correspondre à la durée de votre animation CSS
+    }, 700); // 1400ms doit correspondre à la durée de votre animation CSS*/
   }
 }
 
@@ -302,6 +313,9 @@ function handleGesture() {
           <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path" alt="page.title"/>
         </div>
       </div>
+      <div class="click-zone left" @click="turnLeft"></div>
+      <div class="click-zone right" @click="turnRight"></div>
+
     </div>
 
     <div id="contact"
@@ -314,7 +328,26 @@ function handleGesture() {
 
 <style scoped>
 
+
 @media (max-width: 1024px) {
+
+  .book {
+    @apply relative;
+  }
+
+  .click-zone {
+    @apply absolute top-0 h-full cursor-pointer z-10;
+    width: 50%;
+  }
+
+  .left {
+    @apply left-0;
+  }
+
+  .right {
+    @apply right-0;
+  }
+
   .book {
     perspective: 250vw;
   }
