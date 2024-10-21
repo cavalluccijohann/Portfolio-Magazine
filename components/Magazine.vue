@@ -299,7 +299,7 @@ function handleGesture() {
             :style="{ zIndex: pages.length - page.id }"
             class="page min-h-100 max-w-100 bg-black float-left mb-5 bg-cover bg-no-repeat bg-left-top clear-none m-0 absolute top-0 w-auto h-full cursor-pointer select-none "
         >
-          <NuxtImg loading="lazy" class="min-h-100 h-70 lg:h-full w-auto" :src="page.path"/>
+          <img class="min-h-100 h-70 lg:h-full w-auto" :src="page.path" alt="page.title"/>
         </div>
       </div>
     </div>
