@@ -16,7 +16,6 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "nuxt-svgo",
     "@nuxt/ui",
-    "@nuxt/img"
   ],
 
   colorMode: {
