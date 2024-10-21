@@ -25,6 +25,8 @@ const pages = [
 ]
 
 const pageActive = ref(1);
+const changeEveryPage = ref(false);
+const timeOut = ref(700);
 
 onMounted(async () => {
   // Get the pages
@@ -68,9 +70,6 @@ onMounted(async () => {
             document.getElementById('contact').classList.remove('add-left');
             document.getElementById('contact').classList.add('remove-left');
           }
-          // Turn the page back
-          console.log('turn left', pageNum);
-          console.log('turn left', this);
 
           document.getElementById('page-' + (pageNum)).classList.remove('flipped');
           document.getElementById('page-' + (pageNum - 1)).classList.remove('flipped');
@@ -97,9 +96,10 @@ onMounted(async () => {
           document.getElementById('page-' + (pageNum + 1)).style.zIndex = pages.length;
           pageActive.value = pageNum;
         }
-        setTimeout(() => {
-          isAnimating = false;
-        }, 700);
+
+          setTimeout(() => {
+            isAnimating = false;
+          }, timeOut.value);
       }
     }
   }
@@ -272,7 +272,7 @@ function handleGesture() {
   <div class="py-10 w-full h-max lg:h-screen overflow-x-hidden flex flex-col lg:flex-row place-content-center">
     <div id="intro"
          class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:left-14 z-10 items-center">
-      <Hero :data="pages"/>
+      <Hero :pages="pages" @update:timeOut="timeOut = $event"/>
     </div>
     <div class="lg:hidden w-full flex items-center justify-center">
       <div
@@ -306,7 +306,7 @@ function handleGesture() {
 
     <div id="contact"
          class="px-10 lg:p-0 flex flex-center justify-center w-full lg:w-[40vw] h-[87%] relative lg:absolute lg:right-14 z-10 lg:top-0 items-center lg:translate-x-[60vw]">
-      <Contact :data="pages"/>
+      <Contact :pages="pages" @update:timeOut="timeOut = $event"/>
     </div>
   </div>
 

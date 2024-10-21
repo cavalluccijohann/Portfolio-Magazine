@@ -1,26 +1,37 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
+
 const props = defineProps({
-  data: {
-    type: Object,
+  pages: {
+    type: Array,
+    required: true,
+  },
+  timeOut: {
+    type: Number,
     required: true,
   },
 });
-const { data } = props;
+
+// Utilisation des props
+let { pages, timeOut } = props;
+
+const emits = defineEmits(['update:timeOut']);
+
 async function goToContact() {
-  const numberPages = data.length;
+  const numberPages = pages.length;
+  emits('update:timeOut', 100);
   // simulate a click on the element with the class "page" and the key 1
   for (let i = 1; i < numberPages;) {
-    console.log('i', i);
     document.querySelector('.page:nth-child(' + i + ')').click();
     await new Promise(resolve => setTimeout(resolve, 100));
     i += 2;
     if (i > 20) {
-      console.log('break');
       break;
     }
   }
+  emits('update:timeOut', 700);
 }
+
 
 </script>
 
